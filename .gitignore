@@ -1,0 +1,5 @@
+.venv/**
+__pycache__/**
+report.md
+**/__pycache__/**
+test.py

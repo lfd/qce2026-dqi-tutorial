@@ -1,0 +1,45 @@
+# This project is a collection of scripts/modules, not an installable package,
+# so this file only carries tool configuration.
+
+[tool.ruff]
+# Lowest version the syntax allows: max_lin_sat.py:304 uses a PEP 701 f-string
+# (quote reuse inside the expression), which is 3.12+. Raise this if the
+# deployment target is newer, but keep it at or below the oldest Python the code
+# has to run on -- the forward-reference annotations only resolve because every
+# module opts into `from __future__ import annotations`.
+target-version = "py312"
+line-length = 100
+extend-exclude = ["test.py"]
+
+[tool.ruff.lint]
+select = [
+    "F",    # pyflakes
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "PIE",  # flake8-pie
+    "RET",  # flake8-return
+    "TRY",  # tryceratops
+    "PERF", # perflint
+    "NPY",  # numpy-specific rules
+    "RUF",  # ruff-specific rules
+]
+ignore = [
+    "E501",   # line-too-long: the formatter owns line length
+    "E741",   # ambiguous-variable-name: l/I/O are standard coding-theory notation
+    "RUF059", # unused-unpacked-variable: partial unpacking is idiomatic here
+    "SIM108", # if-else-block-instead-of-if-exp: ternaries are not always clearer
+    "RET505", # superfluous-else-return: symmetric if/else branches read better
+    "RET508", # superfluous-else-break
+    "TRY003", # raise-vanilla-args: messages at the raise site are fine
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+# This ruff version also formats Python code blocks inside Markdown files.
+# Keep the docs (README.md, report.md) hand-written.
+exclude = ["*.md"]
